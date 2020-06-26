@@ -20,6 +20,7 @@ public class WelcomeController {
     }
 
     private String getEnvironmentName(String uri) {
-        return uri.contains("devopsqa") ? "QA" : (uri.contains("devops") ? "PROD" : "DEV");
+        return uri.contains("/devopsqa/") ? "QA"
+                : (uri.contains("/devopsprod/") ? "PROD" : uri.contains("/devops/") ? "DEV" : "LOCAL");
     }
 }
