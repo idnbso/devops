@@ -13,9 +13,13 @@ public class WelcomeController {
     public String welcome(Model model, HttpServletRequest request) {
         model.addAttribute("course", "DevOps");
 
-        String uri = request.getRequestURI();
-        String environmentName = uri.contains("devopsqa") ? "QA" : (uri.contains("devops") ? "PROD" : "DEV");
+        String requestURI = request.getRequestURI();
+        String environmentName = getEnvironmentName(requestURI);
         model.addAttribute("environment", environmentName);
         return "index";
+    }
+
+    private String getEnvironmentName(String uri) {
+        return uri.contains("devopsqa") ? "QA" : (uri.contains("devops") ? "PROD" : "DEV");
     }
 }
