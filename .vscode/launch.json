@@ -8,7 +8,7 @@
             "console": "internalConsole",
             "mainClass": "com.example.devops.DevopsApplication",
             "projectName": "devops",
-            "args": "--spring.profiles.active=local"
+            "args": "--spring.profiles.active=default"
         }
     ]
 }
