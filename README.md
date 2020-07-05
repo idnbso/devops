@@ -23,7 +23,7 @@ The following notes only include changes relative to the content of the course i
 ### JFrog Artifactory
 * [Artifactory OSS 7.5.8](https://www.jfrog.com/confluence/display/JFROG/Installing+Artifactory#InstallingArtifactory-RPMInstallation)
   ```shell
-  yum install -y jfrog-artifactory-oss-7.5.8.rpm
+  $ yum install -y jfrog-artifactory-oss-7.5.8.rpm
   ```
 
 ### Elasticsearch
@@ -37,10 +37,11 @@ The following notes only include changes relative to the content of the course i
 
 ### Filebeat
 * [Firebeat 7.8](https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-logstash-and-kibana-elastic-stack-on-ubuntu-20-04)
-* [How To Install Elasticsearch, Logstash, and Kibana (Elastic Stack) on Ubuntu 20.04](https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-logstash-and-kibana-elastic-stack-on-ubuntu-20-04)
+* [Elasticsearch, Logstash, and Kibana (Elastic Stack)](https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-logstash-and-kibana-elastic-stack-on-ubuntu-20-04)
 
 ### SonarQube
-* [SonartQube 8.4](https://www.fosslinux.com/24429/how-to-install-and-configure-sonarqube-on-centos-7.htm)
+* [SonarQube 8.3](https://www.sonarqube.org/downloads/)
+* [SonarQube 7.9.x LTS with Oracle JAVA 11, PostgreSQL 10.x, Nginx, and Let's Encrypt certificates](https://www.fosslinux.com/24429/how-to-install-and-configure-sonarqube-on-centos-7.htm)
 
 <br />
 
@@ -112,34 +113,9 @@ The following notes only include changes relative to the content of the course i
 * logstash-pipeline.conf
   ```conf
   input {
-    file {
-      type => "tomcat"
-      path => "/usr/share/tomcat/logs/devops-dev.log"
-      start_position => "beginning"
-      add_field => {
-        "server"  =>  "dev"
-        "app"     =>  "devops"
-      }
+    beats {
+      port => "5044"
     }
-    file {
-      type => "tomcat"
-      path => "/usr/share/tomcat/logs/devops-qa.log"
-      start_position => "beginning"
-      add_field => {
-        "server"  =>  "qa"
-        "app"     =>  "devopsqa"
-      }
-    }
-    file {
-      type => "tomcat"
-      path => "/opt/tomcat/logs/devops-prod.log"
-      start_position => "beginning"
-      add_field => {
-        "server"  =>  "prod"
-        "app"     =>  "devops"
-      }
-    }
-    stdin { }
   }
 
   filter {
@@ -172,31 +148,33 @@ The following notes only include changes relative to the content of the course i
   }
   ```
 
-  ## Filebeat Configuration
-  * /etc/filebeat/filebeat.yml
-    ```yml
-    filebeat.inputs:
-      - type: log
-          enabled: true
-          paths:
-            - /usr/share/tomcat/logs/devops-dev.log
-          fields:  
-            app: devops
-            server: dev
+<br/>
 
-      - type: log
-          enabled: true
-          paths:
-            - /usr/share/tomcat/logs/devops-qa.log
-          fields:  
-            app: devops
-            server: qa
+## Filebeat Configuration
+* ```/etc/filebeat/filebeat.yml```
+  ```yml
+  filebeat.inputs:
+    - type: log
+        enabled: true
+        paths:
+          - /usr/share/tomcat/logs/devops-dev.log
+        fields:  
+          app: devops
+          server: dev
 
-      - type: log
-          enabled: true
-          paths:
-            - /opt/tomcat/logs/devops-prod.log
-          fields:  
-            app: devops
-            server: prod
-    ```
+    - type: log
+        enabled: true
+        paths:
+          - /usr/share/tomcat/logs/devops-qa.log
+        fields:  
+          app: devops
+          server: qa
+
+    - type: log
+        enabled: true
+        paths:
+          - /opt/tomcat/logs/devops-prod.log
+        fields:  
+          app: devops
+          server: prod
+  ```

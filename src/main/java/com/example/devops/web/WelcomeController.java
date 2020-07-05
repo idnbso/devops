@@ -1,7 +1,6 @@
 package com.example.devops.web;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.websocket.EncodeException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
