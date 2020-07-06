@@ -7,8 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class WelcomeController {
@@ -19,7 +18,7 @@ public class WelcomeController {
         this.environment = environment;
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/")
+    @GetMapping("/")
     public String welcome(Model model, HttpServletRequest request) {
         logger.info("Processing index request");
         model.addAttribute("course", "DevOps");
