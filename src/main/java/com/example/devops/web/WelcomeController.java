@@ -1,7 +1,6 @@
 package com.example.devops.web;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.websocket.EncodeException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +8,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class WelcomeController {
@@ -19,7 +19,7 @@ public class WelcomeController {
         this.environment = environment;
     }
 
-    @RequestMapping("/")
+    @RequestMapping(method = RequestMethod.GET, path = "/")
     public String welcome(Model model, HttpServletRequest request) {
         logger.info("Processing index request");
         model.addAttribute("course", "DevOps");
