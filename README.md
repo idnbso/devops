@@ -45,6 +45,15 @@ The following notes only include changes relative to the content of the course i
 
 <br />
 
+## Links
+### Jira Software
+* [DevOps Releases](https://idnbso.atlassian.net/projects/DEV?orderField=RANK&selectedItem=com.atlassian.jira.jira-projects-plugin%3Arelease-page&status=released-unreleased)
+
+### Confluence
+* [Project: DevOps](https://idnbso.atlassian.net/wiki/spaces/DEV/overview?homepageId=65603)
+
+<br />
+
 ## Environments
 ### DEV (Tomcat 7)
 * <b>URL:</b> http://localhost:8080/devops/
