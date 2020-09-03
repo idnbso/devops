@@ -6,11 +6,11 @@ node {
   def retrieveArtifact
   
   stage('Prepare') {
-    //mvnHome = tool 'maven'
+    mvnHome = tool 'maven'
 
     //def versionInfo = jsonParse(readFile('version.json'))
     //println "${versionInfo}"
-    error "Stopping early for testing purposes..."
+    //error "Stopping early for testing purposes..."
   }
 
   stage('Checkout') {
