@@ -2,7 +2,7 @@ def getIncrementedVersion() {
     def versionFileText = readFile('version.json')
     def versionFile = new groovy.json.JsonSlurperClassic().parseText(versionFileText)
 
-    println("Current Version: ${versionFile.version}")
+    //println("Current Version: ${versionFile.version}")
 
     def maximumTotalVersionNumbers = 4
     def minimumTotalVersionNumbers = 1
@@ -31,7 +31,7 @@ def getIncrementedVersion() {
     }
 
     String incrementedVersion = "${versionPrefix}_${incrementedVersion}"
-    println("Incremented Version: ${incrementedVersion}")
+    //println("Incremented Version: ${incrementedVersion}")
 
     return incrementedVersion
 }
