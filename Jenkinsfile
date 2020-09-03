@@ -4,11 +4,12 @@ node {
   def artifactVersion
   def tagVersion
   def retrieveArtifact
-  
+  def utils = load "${pwd()}/utils.groovy"
+
   stage('Prepare') {
     mvnHome = tool 'maven'
-
-    def incrementedVersion = getIncrementedVersion()
+        
+    def incrementedVersion = utils.getIncrementedVersion()
 
     println "Incremented Version Variable: ${incrementedVersion}"
   }
@@ -77,33 +78,3 @@ node {
 
 }
 
-def getIncrementedVersion() {
-   String versionFileText = readFile('version.json');
-   def versionFile = new groovy.json.JsonSlurperClassic().parseText(versionFileText);
-
-   println("Current Version: ${versionFile.version}")
-
-   def versionParts = versionFile.version.tokenize('_')
-   def versionPrefix = versionParts.subList(0, versionParts.size()-1).join('_')
-
-   def versionBuildNumber = versionParts.last()    
-   def versionNumbers = versionBuildNumber.tokenize('.')
-   def incrementedVersionNumbers = ""
-
-   if (versionNumbers.size() < 4 && versionNumbers.size() > 0) {
-      incrementedVersionNumbers = "${versionBuildNumber}.1"
-   }
-   else if (versionNumbers.size() == 4) {
-      def majorVersionNumbers = versionNumbers.subList(0, versionNumbers.size()-1).join('.')
-      def minorVersionNumber = Integer.parseInt(versionNumbers[versionNumbers.size()-1])
-      incrementedVersionNumbers = "${majorVersionNumbers}.${minorVersionNumber + 1}"
-   }
-   else {
-      throw new Exception("Illegal version number")
-   }
-
-   def incrementedVersion = "${versionPrefix}_${incrementedVersion}"
-   println("Incremented Version: ${incrementedVersion}")
-
-   return incrementedVersion
-}
