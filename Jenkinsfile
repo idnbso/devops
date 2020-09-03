@@ -8,8 +8,7 @@ node {
   stage('Prepare') {
     mvnHome = tool 'maven'
 
-    String versionFileText = readFile('version.json');
-    def versionFile = new groovy.json.JsonSlurperClassic().parseText(versionFileText);
+    def versionFile = new groovy.json.JsonSlurperClassic().parseText(readFile('version.json'));
     
     println "Version: ${versionFile.version}"
     
