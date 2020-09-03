@@ -6,7 +6,7 @@ node {
   def retrieveArtifact
   
   stage('Prepare') {
-    mvnHome = tool 'maven'
+    //mvnHome = tool 'maven'
 
     def versionInfo = jsonParse(readFile('version.json'))
     println "${versionInfo}"
@@ -75,8 +75,9 @@ node {
     }
   }
 
-   @NonCPS
-   def jsonParse(text) {
-      return new groovy.json.JsonSlurperClassic().parseText(text);
-   }
+}
+
+@NonCPS
+def jsonParse(text) {
+   return new groovy.json.JsonSlurperClassic().parseText(text);
 }
