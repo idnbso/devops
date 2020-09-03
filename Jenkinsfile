@@ -8,8 +8,8 @@ node {
   stage('Prepare') {
     //mvnHome = tool 'maven'
 
-    def versionInfo = jsonParse(readFile('version.json'))
-    println "${versionInfo}"
+    //def versionInfo = jsonParse(readFile('version.json'))
+    //println "${versionInfo}"
     error "Stopping early for testing purposes..."
   }
 
