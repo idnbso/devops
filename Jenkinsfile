@@ -4,14 +4,14 @@ node {
   def artifactVersion
   def tagVersion
   def retrieveArtifact
-  //def utils = load "${pwd()}/utils.groovy"
+  def utils = load "${pwd()}/utils.groovy"
 
   stage('Prepare') {
     mvnHome = tool 'maven'
              
-     //def incrementedVersion = utils.getIncrementedVersion()
+    def incrementedVersion = utils.getIncrementedVersion()
 
-     //println "Incremented Version Variable: ${incrementedVersion}"
+    println "Incremented Version Variable: ${incrementedVersion}"
   }
 
   stage('Checkout') {
@@ -41,11 +41,11 @@ node {
   }
 
   stage('Sonar') {
-     if (isUnix()) {
-        sh "'${mvnHome}/bin/mvn' sonar:sonar"
-     } else {
-        bat(/"${mvnHome}\bin\mvn" sonar:sonar/)
-     }
+   //   if (isUnix()) {
+   //      sh "'${mvnHome}/bin/mvn' sonar:sonar"
+   //   } else {
+   //      bat(/"${mvnHome}\bin\mvn" sonar:sonar/)
+   //   }
   }
 
   if(env.BRANCH_NAME == 'master'){
