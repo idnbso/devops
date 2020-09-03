@@ -8,9 +8,9 @@ node {
   stage('Prepare') {
     mvnHome = tool 'maven'
 
-    //def versionInfo = jsonParse(readFile('version.json'))
-    //println "${versionInfo}"
-    //error "Stopping early for testing purposes..."
+    def versionInfo = jsonParse(readFile('version.json'))
+    println "${versionInfo}"
+    error "Stopping early for testing purposes..."
   }
 
   stage('Checkout') {
