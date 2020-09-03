@@ -14,23 +14,25 @@ node {
     println "Version: ${versionFile.version}"
     
     def versionParts = versionFile.version.tokenize('_')
-    def versionBuildNumber = versionParts.last()
+    def versionPrefix = versionParts.subList(0, versionParts.size()-1).join('_')
+
+    def versionBuildNumber = versionParts.last()    
     def versionNumbers = versionBuildNumber.tokenize('.')
     def incrementedVersion = ""
-
-    if (versionNumbers.size() == 3) {
+    
+    if (versionNumbers.size() < 4 && versionNumbers.size() > 0) {
        incrementedVersion = "${versionBuildNumber}.1"
     }
     else if (versionNumbers.size() == 4) {
        def majorVersionNumbers = versionNumbers.subList(0, versionNumbers.size()-1).join('.')
-       def incrementedMinorVersionNumber = Integer.parseInt(versionNumbers[versionNumbers.size()-1]) + 1
-       incrementedVersion = "${majorVersionNumbers}.${incrementedMinorVersionNumber}"
+       def minorVersionNumber = Integer.parseInt(versionNumbers[versionNumbers.size()-1])
+       incrementedVersion = "${majorVersionNumbers}.${minorVersionNumber + 1}"
     }
     else {
        error "Illegal version number"
     }
     
-    def versionPrefix = versionParts.subList(0, versionParts.size()-1).join('_')
+    
     println "Incremented Version Build Number: ${versionPrefix}_${incrementedVersion}"
   }
 
