@@ -13,6 +13,22 @@ node {
     
     println "Version: ${versionFile.version}"
     
+    def versionParts = versionFile.version.tokenize('_')
+    def versionBuildNumber = versionParts.last()
+    def versionNumbers = versionBuildNumber.tokenize('.')
+
+    if (versionNumbers.size() == 3) {
+       def incrementedVersion = "${versionBuildNumber}.1"
+    }
+    else if (versionNumbers.size() == 4) {
+       def majorVersionNumbers = versionNumbers.subList(0, versionNumbers.size()-1).join('.')
+       def incrementedMinorVersionNumber = Integer.parseInt(versionNumbers[versionNumbers.size()-1]) + 1
+       def incrementedVersion = "${majorVersionNumbers}.${incrementedMinorVersionNumber}"
+    }
+    else {
+       error "Illegal version number"
+    }
+  
     error "Stopping early for testing purposes..."
   }
 
