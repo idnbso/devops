@@ -19,15 +19,16 @@ def getIncrementedVersion() {
     if (versionNumbers.size() < maximumTotalVersionNumbers && versionNumbers.size() >= minimumTotalVersionNumbers) {
         incrementedVersionNumbers = "${versionBuildNumber}${numberSepearatorToken}1"
     }
-   else if (versionNumbers.size() == maximumTotalVersionNumbers) {
-        def majorVersionNumbers = versionNumbers.subList(0, versionNumbers.size() - 1).join(numberSepearatorToken)
-        def minorVersionNumber = Integer.parseInt(versionNumbers.last())
-        incrementedVersionNumbers = "${majorVersionNumbers}${numberSepearatorToken}${minorVersionNumber + 1}"
-   }
-   else {
-        throw new IllegalArgumentException(
-            'Illegal version number input. Must be compatible with following format: X.X.X.X')
-   }
+    else if (versionNumbers.size() == maximumTotalVersionNumbers) {
+         def majorVersionNumbers = versionNumbers.subList(0, versionNumbers.size() - 1).join(numberSepearatorToken)
+         def minorVersionNumber = Integer.parseInt(versionNumbers.last())
+         incrementedVersionNumbers = "${majorVersionNumbers}${numberSepearatorToken}${minorVersionNumber + 1}"
+    }
+    else {
+         def versionFormat = "X${numberSepearatorToken}X${numberSepearatorToken}X${numberSepearatorToken}X"
+         throw new IllegalArgumentException(
+             "Illegal version number input. Must be compatible with following format: ${versionFormat}")
+    }
 
     String incrementedVersion = "${versionPrefix}_${incrementedVersion}"
     println("Incremented Version: ${incrementedVersion}")
