@@ -8,7 +8,7 @@ node {
   stage('Prepare') {
     mvnHome = tool 'maven'
 
-    def versionFileText = jsonParse(readFile('version.json'));
+    def versionFileText = readFile('version.json');
     def versionInfo = new groovy.json.JsonSlurperClassic().parseText(versionFileText);
     println "${versionInfo}"
     error "Stopping early for testing purposes..."
