@@ -1,6 +1,4 @@
 def getIncrementedVersion() {
-    String incrementedVersion
-
     def versionFileText = readFile('version.json')
     def versionFile = new groovy.json.JsonSlurperClassic().parseText(versionFileText)
 
@@ -22,17 +20,17 @@ def getIncrementedVersion() {
         incrementedVersionNumbers = "${versionBuildNumber}${numberSepearatorToken}1"
     }
     else if (versionNumbers.size() == maximumTotalVersionNumbers) {
-            def majorVersionNumbers = versionNumbers.subList(0, versionNumbers.size() - 1).join(numberSepearatorToken)
-            def minorVersionNumber = Integer.parseInt(versionNumbers.last())
-            incrementedVersionNumbers = "${majorVersionNumbers}${numberSepearatorToken}${minorVersionNumber + 1}"
+        def majorVersionNumbers = versionNumbers.subList(0, versionNumbers.size() - 1).join(numberSepearatorToken)
+        def minorVersionNumber = Integer.parseInt(versionNumbers.last())
+        incrementedVersionNumbers = "${majorVersionNumbers}${numberSepearatorToken}${minorVersionNumber + 1}"
     }
     else {
-            def versionFormat = "X${numberSepearatorToken}X${numberSepearatorToken}X${numberSepearatorToken}X"
-            throw new IllegalArgumentException(
-                "Illegal version number input. Must be compatible with following format: ${versionFormat}")
+        def versionFormat = "X${numberSepearatorToken}X${numberSepearatorToken}X${numberSepearatorToken}X"
+        throw new IllegalArgumentException(
+            "Illegal version number input. Must be compatible with following format: ${versionFormat}")
     }
 
-    incrementedVersion = "${versionPrefix}_${incrementedVersionNumbers}"
+    def incrementedVersion = "${versionPrefix}_${incrementedVersionNumbers}"
     println("Incremented Version: ${incrementedVersion}")
 
     return incrementedVersion
