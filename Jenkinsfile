@@ -81,7 +81,7 @@ def getIncrementedVersion() {
    String versionFileText = readFile('version.json');
    def versionFile = new groovy.json.JsonSlurperClassic().parseText(versionFileText);
 
-   println "Current Version: ${versionFile.version}"
+   println("Current Version: ${versionFile.version}")
 
    def versionParts = versionFile.version.tokenize('_')
    def versionPrefix = versionParts.subList(0, versionParts.size()-1).join('_')
@@ -99,11 +99,11 @@ def getIncrementedVersion() {
       incrementedVersionNumbers = "${majorVersionNumbers}.${minorVersionNumber + 1}"
    }
    else {
-      error "Illegal version number"
+      throw new Exception("Illegal version number")
    }
 
    def incrementedVersion = "${versionPrefix}_${incrementedVersion}"
-   println "Incremented Version: ${incrementedVersion}"
+   println("Incremented Version: ${incrementedVersion}")
 
    return incrementedVersion
 }
