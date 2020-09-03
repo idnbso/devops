@@ -4,9 +4,13 @@ node {
   def artifactVersion
   def tagVersion
   def retrieveArtifact
-
+  
   stage('Prepare') {
     mvnHome = tool 'maven'
+
+    def versionInfo = jsonParse(readFile('version.json'))
+    println "${versionInfo}"
+    error "Stopping early for testing purposes..."
   }
 
   stage('Checkout') {
@@ -70,4 +74,9 @@ node {
        sh "curl --retry-delay 10 --retry 5 http://localhost:8080/devops"
     }
   }
+
+   @NonCPS
+   def jsonParse(text) {
+      return new groovy.json.JsonSlurperClassic().parseText(text);
+   }
 }
