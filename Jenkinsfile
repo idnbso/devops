@@ -32,8 +32,6 @@ node {
     
     def versionPrefix = versionParts.subList(0, versionParts.size()-1).join('_')
     println "Incremented Version Build Number: ${versionPrefix}_${incrementedVersion}"
-
-    error "Stopping early for testing purposes..."
   }
 
   stage('Checkout') {
