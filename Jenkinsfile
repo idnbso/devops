@@ -10,7 +10,9 @@ node {
 
     String versionFileText = readFile('version.json');
     def versionFile = new groovy.json.JsonSlurperClassic().parseText(versionFileText);
-    println "${versionFile}"
+    
+    println "Version: ${versionFile.version}"
+    
     error "Stopping early for testing purposes..."
   }
 
