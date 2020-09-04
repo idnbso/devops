@@ -1,5 +1,5 @@
-def getIncrementedVersion() {
-    final versionFileText = readFile('version.json')
+def getIncrementedVersion(jsonFileName) {
+    final versionFileText = readFile(jsonFileName)
     final versionFile = new groovy.json.JsonSlurperClassic().parseText(versionFileText)
 
     println("Current Version: ${versionFile.version}")

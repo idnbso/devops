@@ -9,7 +9,7 @@ node {
   stage('Prepare') {
     mvnHome = tool 'maven'
 
-    def incrementedVersion = utils.getIncrementedVersion()
+    def incrementedVersion = utils.getIncrementedVersion('version.json')
     println "Incremented Version Variable: ${incrementedVersion}"
   }
 
