@@ -4,7 +4,7 @@ def getIncrementedVersion() {
 
     println("Current Version: ${versionFile.version}")
 
-    final maximumTotalVersionNumbers = 4
+    final maximumTotalVersionNumbers = 4 // Environment, Major, Minor, Patch
     final minimumTotalVersionNumbers = 1
     final partsSeparatorToken = '_'
     final numberSepearatorToken = '.'
@@ -25,7 +25,7 @@ def getIncrementedVersion() {
         incrementedVersionNumbers = "${majorVersionNumbers}${numberSepearatorToken}${minorVersionNumber + 1}"
     }
     else {
-        final versionFormat = "X${numberSepearatorToken}X${numberSepearatorToken}X${numberSepearatorToken}X"
+        final versionFormat = "ENVIRONMENT${numberSepearatorToken}MAJOR${numberSepearatorToken}MINOR${numberSepearatorToken}PATCH"
         throw new IllegalArgumentException(
             "Illegal version number input. Must be compatible with following format: ${versionFormat}")
     }
