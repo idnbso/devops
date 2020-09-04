@@ -4,20 +4,15 @@ node {
   def artifactVersion
   def tagVersion
   def retrieveArtifact
-  def utils = load "${pwd()}/utils.groovy"
+  //def utils = load "${pwd()}/utils.groovy"
 
   stage('Prepare') {
     mvnHome = tool 'maven'
-    def incrementedVersion = "RELEASE_TEMP"
+   //  def incrementedVersion = "RELEASE_TEMP"
 
-    try {
-      incrementedVersion = utils.getIncrementedVersion()
-    }
-    catch (Exception ex) {
-       println "Exception while attempting to incerement current version: ${ex}"
-    }
+   //  incrementedVersion = utils.getIncrementedVersion()
 
-    println "Incremented Version Variable: ${incrementedVersion}"
+   //  println "Incremented Version Variable: ${incrementedVersion}"
   }
 
   stage('Checkout') {

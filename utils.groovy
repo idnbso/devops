@@ -1,39 +1,45 @@
 def getIncrementedVersion() {
-    final versionFileText = readFile('version.json')
-    final versionFile = new groovy.json.JsonSlurperClassic().parseText(versionFileText)
 
-    println("Current Version: ${versionFile.version}")
+    try {
+        final versionFileText = readFile('version.json')
+        final versionFile = new groovy.json.JsonSlurperClassic().parseText(versionFileText)
 
-    final maximumTotalVersionNumbers = 4
-    final minimumTotalVersionNumbers = 1
-    final partsSeparatorToken = '_'
-    final numberSepearatorToken = '.'
+        println("Current Version: ${versionFile.version}")
 
-    final versionParts = versionFile.version.tokenize(partsSeparatorToken)
-    final versionPrefix = versionParts.subList(0, versionParts.size() - 1).join(partsSeparatorToken)
+        final maximumTotalVersionNumbers = 4
+        final minimumTotalVersionNumbers = 1
+        final partsSeparatorToken = '_'
+        final numberSepearatorToken = '.'
 
-    final versionBuildNumber = versionParts.last()
-    final versionNumbers = versionBuildNumber.tokenize(numberSepearatorToken)
-    def incrementedVersionNumbers = ''
+        final versionParts = versionFile.version.tokenize(partsSeparatorToken)
+        final versionPrefix = versionParts.subList(0, versionParts.size() - 1).join(partsSeparatorToken)
 
-    if (versionNumbers.size() < maximumTotalVersionNumbers && versionNumbers.size() >= minimumTotalVersionNumbers) {
-        incrementedVersionNumbers = "${versionBuildNumber}${numberSepearatorToken}1"
+        final versionBuildNumber = versionParts.last()
+        final versionNumbers = versionBuildNumber.tokenize(numberSepearatorToken)
+        def incrementedVersionNumbers = ''
+
+        if (versionNumbers.size() < maximumTotalVersionNumbers && versionNumbers.size() >= minimumTotalVersionNumbers) {
+            incrementedVersionNumbers = "${versionBuildNumber}${numberSepearatorToken}1"
+        }
+        else if (versionNumbers.size() == maximumTotalVersionNumbers) {
+            final majorVersionNumbers = versionNumbers.subList(0, versionNumbers.size() - 1).join(numberSepearatorToken)
+            final minorVersionNumber = Integer.parseInt(versionNumbers.last())
+            incrementedVersionNumbers = "${majorVersionNumbers}${numberSepearatorToken}${minorVersionNumber + 1}"
+        }
+        else {
+            final versionFormat = "X${numberSepearatorToken}X${numberSepearatorToken}X${numberSepearatorToken}X"
+            throw new IllegalArgumentException(
+                "Illegal version number input. Must be compatible with following format: ${versionFormat}")
+        }
+
+        def incrementedVersion = "${versionPrefix}_${incrementedVersion}"
+        println("Incremented Version: ${incrementedVersion}")
+        
+        return incrementedVersion
     }
-    else if (versionNumbers.size() == maximumTotalVersionNumbers) {
-        final majorVersionNumbers = versionNumbers.subList(0, versionNumbers.size() - 1).join(numberSepearatorToken)
-        final minorVersionNumber = Integer.parseInt(versionNumbers.last())
-        incrementedVersionNumbers = "${majorVersionNumbers}${numberSepearatorToken}${minorVersionNumber + 1}"
+    catch (Exception ex) {
+        println "${ex}"
     }
-    else {
-        final versionFormat = "X${numberSepearatorToken}X${numberSepearatorToken}X${numberSepearatorToken}X"
-        throw new IllegalArgumentException(
-            "Illegal version number input. Must be compatible with following format: ${versionFormat}")
-    }
-
-    final incrementedVersion = "${versionPrefix}_${incrementedVersion}"
-    println("Incremented Version: ${incrementedVersion}")
-
-    return incrementedVersion
 }
 
 return this
