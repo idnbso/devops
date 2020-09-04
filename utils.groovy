@@ -30,7 +30,7 @@ def getIncrementedVersion() {
             "Illegal version number input. Must be compatible with following format: ${versionFormat}")
     }
 
-    final incrementedVersion = "${versionPrefix}_${incrementedVersionNumbers}"
+    final incrementedVersion = "${versionPrefix}_${incrementedVersion}"
     println("Incremented Version: ${incrementedVersion}")
 
     return incrementedVersion
