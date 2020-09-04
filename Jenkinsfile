@@ -8,10 +8,8 @@ node {
 
   stage('Prepare') {
     mvnHome = tool 'maven'
-    def incrementedVersion = "RELEASE_TEMP"
 
-    incrementedVersion = utils.getIncrementedVersion()
-
+    def incrementedVersion = utils.getIncrementedVersion()
     println "Incremented Version Variable: ${incrementedVersion}"
   }
 
