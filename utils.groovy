@@ -8,11 +8,11 @@ def getACMReportsIncrementedVersion() {
 
     // Set ACM Reports specific versioning scheme constant values
     final versionPartsNames = [ "Environment", "Major", "Minor", "Patch" ].collect { it.toUpperCase() }
-    final versionFormat = versionPartsNames.join(numberSeparatorToken)
     final maximumTotalVersionNumbers = versionPartsNames.size()
     final minimumTotalVersionNumbers = 1
     final partsSeparatorToken = '_'
     final numberSeparatorToken = '.'
+    final versionFormat = versionPartsNames.join(numberSeparatorToken)
 
     // Build incremented version
     final versionParts = versionFile.version.tokenize(partsSeparatorToken)
