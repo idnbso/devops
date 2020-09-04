@@ -1,5 +1,5 @@
 def getACMReportsIncrementedVersion() {
-    // Read local stored version json file and deserialize to an object    
+    // Read local stored version json file and deserialize to an object
     final jsonFileName = 'version.json'
     final versionFileText = readFile(jsonFileName)
     final versionFile = new groovy.json.JsonSlurperClassic().parseText(versionFileText)
@@ -20,7 +20,7 @@ def getACMReportsIncrementedVersion() {
 
     final incrementedVersionNumber = getIncrementedVersionNumber(versionBuildNumber, versionFormat, numberSeparatorToken,
                                         maximumTotalVersionNumbers, minimumTotalVersionNumbers)
-    final incrementedVersion = "${versionPrefix}_${incrementedVersionNumber}"            
+    final incrementedVersion = "${versionPrefix}_${incrementedVersionNumber}"
     println("Incremented Version: ${incrementedVersion}")
 
     return incrementedVersion
