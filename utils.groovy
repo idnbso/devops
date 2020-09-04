@@ -18,7 +18,7 @@ def getACMReportsIncrementedVersion() {
     final versionPrefix = versionParts.subList(0, versionParts.size() - 1).join(partsSeparatorToken)
     final versionBuildNumber = versionParts.last()
 
-    final incrementedVersionNumber = getIncrementedVersionNumber(versionBuildNumber, versionFormat, numberSeparatorToken
+    final incrementedVersionNumber = getIncrementedVersionNumber(versionBuildNumber, versionFormat, numberSeparatorToken,
                                         maximumTotalVersionNumbers, minimumTotalVersionNumbers)
     final incrementedVersion = "${versionPrefix}_${incrementedVersionNumber}"            
     println("Incremented Version: ${incrementedVersion}")
@@ -26,7 +26,7 @@ def getACMReportsIncrementedVersion() {
     return incrementedVersion
 }
 
-def getIncrementedVersionNumber(versionBuildNumber, versionFormat, numberSeparatorToken
+def getIncrementedVersionNumber(versionBuildNumber, versionFormat, numberSeparatorToken,
                                 maximumTotalVersionNumbers, minimumTotalVersionNumbers) {
     final versionNumbers = versionBuildNumber.tokenize(numberSeparatorToken)
     String incrementedVersionNumber

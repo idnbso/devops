@@ -4,13 +4,13 @@ node {
   def artifactVersion
   def tagVersion
   def retrieveArtifact
-  def utils = load "${pwd()}/utils.groovy"
+  //def utils = load "${pwd()}/utils.groovy"
 
   stage('Prepare') {
     mvnHome = tool 'maven'
 
-    def incrementedVersion = utils.getACMReportsIncrementedVersion()
-    println "Incremented Version Variable: ${incrementedVersion}"
+   //  def incrementedVersion = utils.getACMReportsIncrementedVersion()
+   //  println "Incremented Version Variable: ${incrementedVersion}"
   }
 
   stage('Checkout') {
