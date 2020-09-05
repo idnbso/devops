@@ -14,12 +14,14 @@ def getACMReportsIncrementedVersion() {
     final numberSeparatorToken = '.'
     final versionFormat = versionPartsNames.join(numberSeparatorToken)
 
-    // Build incremented version
+    // Build incremented version parts
     final versionParts = versionFile.version.tokenize(partsSeparatorToken)
     final versionPrefix = versionParts.subList(0, versionParts.size() - 1).join(partsSeparatorToken)
     final versionBuildNumber = versionParts.last()
+
+    // Validate input version scheme
     final totalSubVersionNumbers = maximumTotalVersionNumbers - 1
-    final versionSchemeRegex = /\d+((\$numberSeparatorToken\d+){0,$totalSubVersionNumbers})?/
+    final versionSchemeRegex = /\d+(($numberSeparatorToken\d+){0,$totalSubVersionNumbers})?/
 
     if (!(versionBuildNumber ==~ versionSchemeRegex)) {
         println "The build version was not incremented due to an unsupported version scheme."
@@ -27,6 +29,7 @@ def getACMReportsIncrementedVersion() {
         return versionFile.version
     }
 
+    // Increment version
     final incrementedVersionNumber = getIncrementedVersionNumber(versionBuildNumber, versionFormat, numberSeparatorToken,
                                         maximumTotalVersionNumbers, minimumTotalVersionNumbers)
     final String incrementedVersion = "${versionPrefix}_${incrementedVersionNumber}"
@@ -45,7 +48,7 @@ def getIncrementedVersionNumber(versionBuildNumber, versionFormat, numberSeparat
     }
     else if (versionNumbers.size() == maximumTotalVersionNumbers) {
         final majorVersionNumbers = versionNumbers.subList(0, versionNumbers.size() - 1).join(numberSeparatorToken)
-        final minorVersionNumber = Integer.parseInt(versionNumbers.last())
+        final minorVersionNumber = versionNumbers.last() as int
         incrementedVersionNumber = "${majorVersionNumbers}${numberSeparatorToken}${minorVersionNumber + 1}"
     }
     else {
