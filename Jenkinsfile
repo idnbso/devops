@@ -8,7 +8,7 @@ node {
 
   stage('Prepare') {
     mvnHome = tool 'maven'
-
+   
     def incrementedVersion = utils.getACMReportsIncrementedVersion()
     println "Incremented Version Variable: ${incrementedVersion}"
   }

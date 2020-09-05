@@ -4,7 +4,7 @@ def getACMReportsIncrementedVersion() {
     final versionFileText = readFile(jsonFileName)
     final versionFile = new groovy.json.JsonSlurperClassic().parseText(versionFileText)
 
-    println("Current Version: ${versionFile.version}")
+    println "Current Version: ${versionFile.version}"
 
     // Set ACM Reports specific versioning scheme constant values
     final versionPartsNames = [ "Major", "Minor", "Build", "Patch" ].collect { it.toUpperCase() }
@@ -18,17 +18,24 @@ def getACMReportsIncrementedVersion() {
     final versionParts = versionFile.version.tokenize(partsSeparatorToken)
     final versionPrefix = versionParts.subList(0, versionParts.size() - 1).join(partsSeparatorToken)
     final versionBuildNumber = versionParts.last()
+    final versionSchemeRegex = /\d+(\.\d+)?(\.\d+)?(\.\d+)?/
+
+    if (!(versionBuildNumber ==~ versionSchemeRegex)) {
+        println "The build version was not incremented due to an unsupported version scheme."
+        print "The currently supported version scheme ends with a numbered version."
+        return versionFile.version
+    }
 
     final incrementedVersionNumber = getIncrementedVersionNumber(versionBuildNumber, versionFormat, numberSeparatorToken,
                                         maximumTotalVersionNumbers, minimumTotalVersionNumbers)
-    final incrementedVersion = "${versionPrefix}_${incrementedVersionNumber}"
-    println("Incremented Version: ${incrementedVersion}")
+    final String incrementedVersion = "${versionPrefix}_${incrementedVersionNumber}"
+    println "Incremented Version: ${incrementedVersion}"
 
     return incrementedVersion
 }
 
 def getIncrementedVersionNumber(versionBuildNumber, versionFormat, numberSeparatorToken,
-                                maximumTotalVersionNumbers, minimumTotalVersionNumbers) {
+                                       maximumTotalVersionNumbers, minimumTotalVersionNumbers) {
     final versionNumbers = versionBuildNumber.tokenize(numberSeparatorToken)
     String incrementedVersionNumber
 
