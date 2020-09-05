@@ -1,4 +1,4 @@
-def getACMReportsIncrementedVersion() {
+String getACMReportsIncrementedVersion() {
     // Read local stored version json file and deserialize to an object
     final jsonFileName = 'version.json'
     final versionFileText = readFile(jsonFileName)
@@ -38,7 +38,7 @@ def getACMReportsIncrementedVersion() {
     return incrementedVersion
 }
 
-def getIncrementedVersionNumber(versionBuildNumber, versionFormat, numberSeparatorToken,
+static String getIncrementedVersionNumber(versionBuildNumber, versionFormat, numberSeparatorToken,
                                        maximumTotalVersionNumbers, minimumTotalVersionNumbers) {
     final versionNumbers = versionBuildNumber.tokenize(numberSeparatorToken)
     String incrementedVersionNumber
