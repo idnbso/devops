@@ -18,7 +18,8 @@ def getACMReportsIncrementedVersion() {
     final versionParts = versionFile.version.tokenize(partsSeparatorToken)
     final versionPrefix = versionParts.subList(0, versionParts.size() - 1).join(partsSeparatorToken)
     final versionBuildNumber = versionParts.last()
-    final versionSchemeRegex = /\d+(\.\d+)?(\.\d+)?(\.\d+)?/
+    final totalSubVersionNumbers = maximumTotalVersionNumbers - 1
+    final versionSchemeRegex = /\d+((\$numberSeparatorToken\d+){0,$totalSubVersionNumbers})?/
 
     if (!(versionBuildNumber ==~ versionSchemeRegex)) {
         println "The build version was not incremented due to an unsupported version scheme."
