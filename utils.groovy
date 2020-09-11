@@ -3,21 +3,16 @@ String getACMReportsIncrementedVersion() {
     final jsonFileName = 'version.json'
     final versionFileText = readFile(jsonFileName)
     final versionFile = new groovy.json.JsonSlurperClassic().parseText(versionFileText)
+    final versionBuildNumber = versionFile.build_version
 
-    println "Current Version: ${versionFile.version}"
+    println "Current Version: ${versionBuildNumber}"
 
     // Set ACM Reports specific versioning scheme constant values
     final versionPartsNames = [ "Major", "Minor", "Build", "Patch" ].collect { it.toUpperCase() }
     final maximumTotalVersionNumbers = versionPartsNames.size()
     final minimumTotalVersionNumbers = 1
-    final partsSeparatorToken = '_'
     final numberSeparatorToken = '.'
     final versionFormat = versionPartsNames.join(numberSeparatorToken)
-
-    // Build incremented version parts
-    final versionParts = versionFile.version.tokenize(partsSeparatorToken)
-    final versionPrefix = versionParts.subList(0, versionParts.size() - 1).join(partsSeparatorToken)
-    final versionBuildNumber = versionParts.last()
 
     // Validate input version scheme
     final totalSubVersionNumbers = maximumTotalVersionNumbers - 1
@@ -26,16 +21,16 @@ String getACMReportsIncrementedVersion() {
     if (!(versionBuildNumber ==~ versionSchemeRegex)) {
         println "The build version was not incremented due to an unsupported version scheme."
         print "The currently supported version scheme ends with a numbered version."
-        return versionFile.version
+        return versionBuildNumber
     }
 
     // Increment version
     final incrementedVersionNumber = getIncrementedVersionNumber(versionBuildNumber, versionFormat, numberSeparatorToken,
                                         maximumTotalVersionNumbers, minimumTotalVersionNumbers)
-    final String incrementedVersion = "${versionPrefix}_${incrementedVersionNumber}"
-    println "Incremented Version: ${incrementedVersion}"
 
-    return incrementedVersion
+    println "Incremented Version: ${incrementedVersionNumber}"
+
+    return incrementedVersionNumber
 }
 
 static String getIncrementedVersionNumber(versionBuildNumber, versionFormat, numberSeparatorToken,
