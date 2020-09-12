@@ -12,7 +12,13 @@ node {
   stage('Prepare') {
     mvnHome = tool 'maven'
    
-    def (majorRelease, minorRelease, buildRelease, patchRelease) = utils.getACMReportsIncrementedVersion()
+    // Read local stored version json file and deserialize to an object
+    final jsonFileName = 'version.json'
+    final versionFileText = readFile(jsonFileName)
+    final versionFile = new groovy.json.JsonSlurperClassic().parseText(versionFileText)
+    final versionBuildNumber = versionFile.build_version
+
+    def (majorRelease, minorRelease, buildRelease, patchRelease) = utils.getACMReportsIncrementedVersion(versionBuildNumber)
     println "Incremented Version Variables: Major: ${majorRelease}, Minor: ${minorRelease}, Build: ${buildRelease}, Patch: ${patchRelease}"
 
 	 properties([parameters([new ExtendedChoiceParameterDefinition(

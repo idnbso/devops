@@ -35,7 +35,7 @@ class VersionStructure {
     String getIncrementedVersionNumber(String versionBuildNumber, int subVersionPosition = totalSubVersionNumbers) {
         def totalVersionNumbers = versionPartsNames.size()
 
-        def getIncrementVersionExceptionMessage = {mode -> {
+        def getIncrementVersionExceptionMessage = {mode -> L:{
             def exceptionMessage = "Illegal version number ${mode} of ${versionBuildNumber} "
             exceptionMessage += "for position ${subVersionPosition}: ${versionPartsNames[subVersionPosition]}. "
             exceptionMessage += "Must be compatible with following version format: ${versionFormat}"
