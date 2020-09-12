@@ -24,10 +24,9 @@ ArrayList<String> getACMReportsIncrementedVersion() {
 }
 
 def getACMReprotsVersionStructure() {
-    def jenkinsRootDir = build.getEnvVars()["JENKINS_HOME"];
     def parent = getClass().getClassLoader()
     def loader = new GroovyClassLoader(parent)
-    return loader.parseClass(readFile, "${jenkinsRootDir}/src/org/util/VersionStructure.groovy").newInstance(
+    return loader.parseClass(readFile, "${env.JENKINS_HOME}/src/org/util/VersionStructure.groovy").newInstance(
             versionPartsNames: [ "Major", "Minor", "Build", "Patch" ], 
             numberSeparatorToken: '.',
             versionSchemeRegex: "\\d+((\\.\\d+){0,3})?"
