@@ -12,7 +12,7 @@ ArrayList<String> getACMReportsIncrementedVersion() {
 
     println "Current Version: ${versionBuildNumber}"
 
-    final acmVersionStructure = getVersionStructure()
+    final acmVersionStructure = getACMReprotsVersionStructure()
 
     if (!acmVersionStructure.getIsVersionBuildNumberValid(versionBuildNumber)) {
         println "The build version was not incremented due to an unsupported version scheme."
