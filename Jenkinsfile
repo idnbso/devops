@@ -1,3 +1,5 @@
+import com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterDefinition
+
 node {
   def mvnHome
   def pom
