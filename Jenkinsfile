@@ -7,48 +7,48 @@ node {
   def artifactVersion
   def tagVersion
   def retrieveArtifact
-//   def utils = load "${pwd()}/src/org/util/utils.groovy"
+  def utils = load "${pwd()}/src/org/util/utils.groovy"
 
   stage('Prepare') {
     mvnHome = tool 'maven'
    
-   //  def (majorRelease, minorRelease, buildRelease, patchRelease) = utils.getACMReportsIncrementedVersion()
-   //  println "Incremented Version Variables: Major: ${majorRelease}, Minor: ${minorRelease}, Build: ${buildRelease}, Patch: ${patchRelease}"
+    def (majorRelease, minorRelease, buildRelease, patchRelease) = utils.getACMReportsIncrementedVersion()
+    println "Incremented Version Variables: Major: ${majorRelease}, Minor: ${minorRelease}, Build: ${buildRelease}, Patch: ${patchRelease}"
 
-	//  properties([parameters([new ExtendedChoiceParameterDefinition(
-	// 			"releaseType", 
-	// 			"PT_RADIO", 
-	// 			"${majorRelease},${minorRelease},${buildRelease},${patchRelease}", 
-	// 			"",
-	// 			"", 
-	// 			"",
-	// 			"", 
-	// 			"", 
-	// 			"", 
-	// 			"", 
-	// 			"", 
-	// 			"", 
-	// 			"", 
-	// 			"", 
-	// 			"", 
-	// 			"", 
-	// 			"", 
-	// 			"MajorDesc,MinorDesc,BuildDesc,PatchDesc", 
-	// 			"", 
-	// 			"", 
-	// 			"", 
-	// 			"", 
-	// 			"", 
-	// 			"", 
-	// 			"", 
-	// 			"", 
-	// 			false,
-	// 			false,
-	// 			4,
-	// 			"multiRadioDesc",
-	// 			",")])])
+	 properties([parameters([new ExtendedChoiceParameterDefinition(
+				"releaseType", 
+				"PT_RADIO", 
+				"${majorRelease},${minorRelease},${buildRelease},${patchRelease}", 
+				"",
+				"", 
+				"",
+				"", 
+				"", 
+				"", 
+				"", 
+				"", 
+				"", 
+				"", 
+				"", 
+				"", 
+				"", 
+				"", 
+				"MajorDesc,MinorDesc,BuildDesc,PatchDesc", 
+				"", 
+				"", 
+				"", 
+				"", 
+				"", 
+				"", 
+				"", 
+				"", 
+				false,
+				false,
+				4,
+				"multiRadioDesc",
+				",")])])
 	   
-	//    echo "Selected ${params.releaseType}"
+	   echo "Selected ${params.releaseType}"
   }
 
   stage('Checkout') {
