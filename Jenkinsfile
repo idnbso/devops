@@ -22,37 +22,38 @@ node {
     println "Incremented Version Variables: Major: ${majorRelease}, Minor: ${minorRelease}, Build: ${buildRelease}, Patch: ${patchRelease}"
 
 	 properties([parameters([new ExtendedChoiceParameterDefinition(
-				"Release", 
-				"PT_RADIO", 
-				"${majorRelease},${minorRelease},${buildRelease},${patchRelease}", 
-				"",
-				"", 
-				"",
-				"", 
-				"", 
-				"", 
-				"", 
-				"", 
-				"", 
-				"", 
-				"", 
-				"", 
-				"", 
-				"", 
-				"Major: ${majorRelease},Minor: ${minorRelease},Build: ${buildRelease},Patch: ${patchRelease}", 
-				"", 
-				"", 
-				"", 
-				"", 
-				"", 
-				"", 
-				"", 
-				"", 
-				false,
-				false,
-				4,
-				"multiRadioDesc",
-				",")])])
+				"Release", // name
+				"PT_RADIO", // type
+				"${majorRelease},${minorRelease},${buildRelease},${patchRelease}",  // propertyValue
+				"", // projectName
+				"", // propertyFile
+				"", // groovyScript
+				"", // groovyScriptFile
+				"", // bindings
+				"", // groovyClasspath
+				"", // propertyKey
+				"", // defaultPropertyValue
+				"", // defaultPropertyFile
+				"", // defaultGroovyScript
+				"", // defaultGroovyScriptFile
+				"", // defaultBindings
+				"", // defaultGroovyClasspath
+				"", // defaultPropertyKey
+				"Major: ${majorRelease},Minor: ${minorRelease},Build: ${buildRelease},Patch: ${patchRelease}", // descriptionPropertyValue
+				"", // descriptionPropertyFile
+				"", // descriptionGroovyScript
+				"", // descriptionGroovyScriptFile
+				"", // descriptionBindings
+				"", // descriptionGroovyClasspath
+				"", // descriptionPropertyKey
+				"", // javascriptFile
+				"", // javascript
+				false, // saveJSONParameterToFile
+				false, // quoteValue
+				4, // visibleItemCount
+				"Choose the next release version (last version was ${versionBuildNumber})", // description
+				"," // multiSelectDelimiter
+            )])])
 	   
 	   echo "Selected ${params.Release}"
   }
