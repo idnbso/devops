@@ -1,4 +1,4 @@
-evaluate(new File("VersionStructure/VersionStructure.groovy"))
+evaluate(new File("VersionStructure.groovy"))
 
 ArrayList<String> getACMReportsIncrementedVersion() {
     // Read local stored version json file and deserialize to an object
