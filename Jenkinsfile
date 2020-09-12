@@ -32,7 +32,7 @@ node {
 				"", // bindings
 				"", // groovyClasspath
 				"", // propertyKey
-				"", // defaultPropertyValue
+				"${patchRelease}", // defaultPropertyValue
 				"", // defaultPropertyFile
 				"", // defaultGroovyScript
 				"", // defaultGroovyScriptFile
