@@ -22,7 +22,7 @@ node {
     println "Incremented Version Variables: Major: ${majorRelease}, Minor: ${minorRelease}, Build: ${buildRelease}, Patch: ${patchRelease}"
 
 	 properties([parameters([new ExtendedChoiceParameterDefinition(
-				"releaseType", 
+				"Release", 
 				"PT_RADIO", 
 				"${majorRelease},${minorRelease},${buildRelease},${patchRelease}", 
 				"",
@@ -39,7 +39,7 @@ node {
 				"", 
 				"", 
 				"", 
-				"MajorDesc,MinorDesc,BuildDesc,PatchDesc", 
+				"Major: ${majorRelease},Minor: ${minorRelease},Build: ${buildRelease},Patch: ${patchRelease}", 
 				"", 
 				"", 
 				"", 
@@ -54,7 +54,7 @@ node {
 				"multiRadioDesc",
 				",")])])
 	   
-	   echo "Selected ${params.releaseType}"
+	   echo "Selected ${params.Release}"
   }
 
   stage('Checkout') {
