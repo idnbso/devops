@@ -32,4 +32,6 @@ def getACMReprotsVersionStructure() {
             numberSeparatorToken: '.',
             versionSchemeRegex: "\\d+((\\.\\d+){0,3})?"
         )
-}  
+} 
+
+return this
