@@ -1,6 +1,5 @@
-evaluate(new File("VersionStructure.groovy"))
+import VersionStructure
 
-@NonCPS
 ArrayList<String> getACMReportsIncrementedVersion() {
     // Read local stored version json file and deserialize to an object
     final jsonFileName = 'version.json'
