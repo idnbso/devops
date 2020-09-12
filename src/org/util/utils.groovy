@@ -1,7 +1,5 @@
 package org.util
 
-import org.util.VersionStructure
-
 ArrayList<String> getACMReportsIncrementedVersion() {
     // Read local stored version json file and deserialize to an object
     final jsonFileName = 'version.json'
@@ -25,5 +23,3 @@ ArrayList<String> getACMReportsIncrementedVersion() {
 
     return acmVersionStructure.getIncrementedVersionScenarios(versionBuildNumber)
 }
-
-return this
