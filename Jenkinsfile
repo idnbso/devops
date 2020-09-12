@@ -7,7 +7,7 @@ node {
   def artifactVersion
   def tagVersion
   def retrieveArtifact
-  def utils = load "${pwd()}/src/org/util/utils.groovy"
+  def utils = new org.util.utils()
 
   stage('Prepare') {
     mvnHome = tool 'maven'
