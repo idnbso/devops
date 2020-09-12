@@ -1,3 +1,5 @@
+package org.util
+
 class VersionStructure {
     final String numberSeparatorToken
     final ArrayList<String> versionPartsNames
