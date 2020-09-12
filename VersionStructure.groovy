@@ -27,7 +27,7 @@ class VersionStructure {
     boolean getIsVersionBuildNumberValid(String versionBuildNumber) { versionBuildNumber ==~ versionSchemeRegex }
 
     ArrayList<String> getIncrementedVersionScenarios(String versionBuildNumber) {
-        versionPartsNames.collect { getIncrementedVersionNumber(versionBuildNumber, versionPartsNames.indexOf(it)) }
+        return versionPartsNames.collect { getIncrementedVersionNumber(versionBuildNumber, versionPartsNames.indexOf(it)) }
     }
     
     String getIncrementedVersionNumber(String versionBuildNumber, int subVersionPosition = totalSubVersionNumbers) {

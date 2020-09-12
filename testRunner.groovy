@@ -3,7 +3,7 @@ def runTestSuite() {
     println "\t\t\t### ACM Reports DevOps Scripts Test Runner ###"
     println "\t\t\t##############################################\n\n"
 
-    runVersionStructureTests() // Fail on first failure
+    runVersionStructureTests() // Fail on first assert exception
 
     println "\n\nDone."
 }

@@ -1,6 +1,6 @@
 import VersionStructure
 
-String getACMReportsIncrementedVersion() {
+ArrayList<String> getACMReportsIncrementedVersion() {
     // Read local stored version json file and deserialize to an object
     final jsonFileName = 'version.json'
     final versionFileText = readFile(jsonFileName)
