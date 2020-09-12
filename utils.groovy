@@ -1,3 +1,5 @@
+import VersionStructure
+
 String getACMReportsIncrementedVersion() {
     // Read local stored version json file and deserialize to an object
     final jsonFileName = 'version.json'
@@ -7,51 +9,19 @@ String getACMReportsIncrementedVersion() {
 
     println "Current Version: ${versionBuildNumber}"
 
-    // Set ACM Reports specific versioning scheme constant values
-    final versionPartsNames = [ "Major", "Minor", "Build", "Patch" ].collect { it.toUpperCase() }
-    final maximumTotalVersionNumbers = versionPartsNames.size()
-    final minimumTotalVersionNumbers = 1
-    final numberSeparatorToken = '.'
-    final versionFormat = versionPartsNames.join(numberSeparatorToken)
+    final acmVersionStructure = new VersionStructure(
+            versionPartsNames: [ "Major", "Minor", "Build", "Patch" ], 
+            numberSeparatorToken: '.',
+            versionSchemeRegex: "\\d+((\\.\\d+){0,3})?"
+        )
 
-    // Validate input version scheme
-    final totalSubVersionNumbers = maximumTotalVersionNumbers - 1
-    final versionSchemeRegex = /\d+(($numberSeparatorToken\d+){0,$totalSubVersionNumbers})?/
-
-    if (!(versionBuildNumber ==~ versionSchemeRegex)) {
+    if (!acmVersionStructure.getIsVersionBuildNumberValid(versionBuildNumber)) {
         println "The build version was not incremented due to an unsupported version scheme."
-        print "The currently supported version scheme ends with a numbered version."
+        print "The currently supported version scheme is ${acmVersionStructure.versionFormat}"
         return versionBuildNumber
     }
 
-    // Increment version
-    final incrementedVersionNumber = getIncrementedVersionNumber(versionBuildNumber, versionFormat, numberSeparatorToken,
-                                        maximumTotalVersionNumbers, minimumTotalVersionNumbers)
-
-    println "Incremented Version: ${incrementedVersionNumber}"
-
-    return incrementedVersionNumber
-}
-
-static String getIncrementedVersionNumber(versionBuildNumber, versionFormat, numberSeparatorToken,
-                                       maximumTotalVersionNumbers, minimumTotalVersionNumbers) {
-    final versionNumbers = versionBuildNumber.tokenize(numberSeparatorToken)
-    String incrementedVersionNumber
-
-    if (versionNumbers.size() < maximumTotalVersionNumbers && versionNumbers.size() >= minimumTotalVersionNumbers) {
-        incrementedVersionNumber = "${versionBuildNumber}${numberSeparatorToken}1"
-    }
-    else if (versionNumbers.size() == maximumTotalVersionNumbers) {
-        final majorVersionNumbers = versionNumbers.subList(0, versionNumbers.size() - 1).join(numberSeparatorToken)
-        final minorVersionNumber = versionNumbers.last() as int
-        incrementedVersionNumber = "${majorVersionNumbers}${numberSeparatorToken}${minorVersionNumber + 1}"
-    }
-    else {
-        throw new IllegalArgumentException(
-            "Illegal version number input. Must be compatible with following format: ${versionFormat}")
-    }
-
-    return incrementedVersionNumber
+    return acmVersionStructure.getIncrementedVersionScenarios(versionBuildNumber)
 }
 
 return this
